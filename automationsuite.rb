@@ -55,7 +55,7 @@ class Installer
 
   def self.install_ruby
     #run download(binary), true
-    file = File.join(Dir(File.expand_path(__FILE__)), 'railsinstaller.exe')
+    file = File.join(File.dirname(__FILE__), 'railsinstaller.exe')
     run file
   end
 
