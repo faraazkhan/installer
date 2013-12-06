@@ -39,7 +39,11 @@ class Installer
   end
 
   def self.ruby_installed?
-    @rubyversion = run("ruby -v")
+    begin
+      @rubyversion = run("ruby -v")
+    rescue 
+      nil
+    end
     if @rubyversion.match('1.9.3') 
       true
     elsif @rubyversion.match('ruby')
