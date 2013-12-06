@@ -64,7 +64,7 @@ class Installer
     puts "Done."
   end
 
-  def install_framework
+  def self.install_framework
     run('gem install cms_automation')
   end
 
