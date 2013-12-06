@@ -14,7 +14,7 @@
 #
 # Install Gherkin Editor
 require 'net/http'
-require 'FileUtils'
+require 'debugger'
 class Installer
 
   def self.install(old_installation=true)
@@ -46,6 +46,7 @@ class Installer
     #rescue Gem::LoadError
       #false
     #end
+    debugger
     result = run('automationsuite testinstall')
     !(result.empty? || result.nil?)
   end
