@@ -17,7 +17,7 @@ require 'net/http'
 require 'FileUtils'
 class Installer
 
-  def install(old_installation=true)
+  def self.install(old_installation=true)
     if ruby_installed?
       puts ruby_installed_message if old_installation
       if framework_installed?
@@ -32,21 +32,21 @@ class Installer
     #download_and_install(editor)
   end
 
-  def ruby_installed?
+  def self.ruby_installed?
     ruby_path = run("where ruby")
     !ruby_path.to_s.empty?
   end
 
-  def framework_installed?
+  def self.framework_installed?
     load_gem = run("gem 'cms_automation'")
     !load_gem.to_s.empty?
   end
 
-  def download_and_install(binary)
+  def self.download_and_install(binary)
     run download(binary_url)
   end
 
-  def download(url)
+  def self.download(url)
     uri = URI.parse(url)
     pwd = run('cd')
     name = uri.host =~ /rails/ ? 'railsinstaller.exe' : 'cms_automation.gem'
@@ -61,11 +61,11 @@ class Installer
   end
 
 
-  def run(command)
+  def self.run(command)
     `#{command}`
   end
 
-  def ruby_installed_message
+  def self.ruby_installed_message
     <<-message
      You already have ruby installed at #{ruby_path}.
      Skipping installation of Rails Installer.
@@ -74,7 +74,7 @@ class Installer
     message
   end
 
-  def framework_installed_message
+  def self.framework_installed_message
     <<-message
        You already have the CMS Automation Framework installed.
        Skipping installation of the framework.
@@ -83,11 +83,11 @@ class Installer
     message
   end
 
-  def ruby
+  def self.ruby
     'http://sourceforge.net/projects/railsinstaller/files/RailsInstaller%20Windows/RailsInstaller-Windows-2.2.1.exe/download'
   end
 
-  def editor
+  def self.editor
     'http://editorurl.com'
   end
 end
