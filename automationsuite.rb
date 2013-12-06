@@ -33,8 +33,8 @@ class Installer
   end
 
   def self.ruby_installed?
-    ruby_path = run("where ruby")
-    !ruby_path.to_s.empty?
+    @ruby_path = run("where ruby")
+    !@ruby_path.to_s.empty?
   end
 
   def self.framework_installed?
@@ -67,7 +67,7 @@ class Installer
 
   def self.ruby_installed_message
     <<-message
-     You already have ruby installed at #{ruby_path}.
+     You already have ruby installed at #{@ruby_path}.
      Skipping installation of Rails Installer.
      If you would like to reinstall ruby with this installer, uninstall existing ruby installation
      and run this installer again
