@@ -54,7 +54,7 @@ class Installer
   end
 
   def self.download_and_install(binary)
-    run download(binary, true)
+    run download(binary), true
   end
 
   def self.download(url)
