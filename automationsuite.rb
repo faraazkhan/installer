@@ -64,6 +64,10 @@ class Installer
     puts "Done."
   end
 
+  def install_framework
+    run('gem install cms_automation')
+  end
+
 
   def self.run(command)
     `#{command}`
