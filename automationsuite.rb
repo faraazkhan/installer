@@ -14,7 +14,6 @@
 #
 # Install Gherkin Editor
 require 'net/http'
-require 'debugger'
 class Installer
 
   def self.install(old_installation=true)
@@ -84,7 +83,7 @@ class Installer
 
   def self.ruby_installed_message
     <<-message
-     You already have ruby installed at #{@ruby_path}.
+     You already have ruby installed at #{@ruby_path}. Please make sure it is version 1.9.3 by running `ruby -v`
      Skipping installation of Ruby
      If you would like to reinstall ruby with this installer, uninstall existing ruby installation
      and run this installer again
