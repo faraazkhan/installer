@@ -46,8 +46,12 @@ class Installer
     #rescue Gem::LoadError
       #false
     #end
-    result = run('automationsuite testinstall')
-    !(result.empty? || result.nil?)
+    begin
+      result = run('automationsuite testinstall')
+      !(result.empty? || result.nil?)
+    rescue 
+      false
+    end
   end
 
   def self.download_and_install(binary)
