@@ -23,7 +23,7 @@ class Installer
       if framework_installed?
         puts framework_installed_message
       else
-        puts "Installing CMS Automation Gem"
+        puts "Installing CMS Automation Framework"
         install_framework
         framework_post_install
       end
@@ -41,12 +41,13 @@ class Installer
   end
 
   def self.framework_installed?
-    begin
-      Gem::Specification.find_by_name('cms_automation')
-      true
-    rescue Gem::LoadError
-      false
-    end
+    #begin
+      #Gem::Specification.find_by_name('cms_automation')
+    #rescue Gem::LoadError
+      #false
+    #end
+    result = run('automationsuite testinstall')
+    !(result.empty? || result.nil?)
   end
 
   def self.download_and_install(binary)
@@ -73,13 +74,13 @@ class Installer
 
 
   def self.run(command)
-    `#{command}`
+    `#{command} >nul 2>&1`
   end
 
   def self.ruby_installed_message
     <<-message
      You already have ruby installed at #{@ruby_path}.
-     Skipping installation of Rails Installer.
+     Skipping installation of Ruby
      If you would like to reinstall ruby with this installer, uninstall existing ruby installation
      and run this installer again
     message
@@ -95,19 +96,12 @@ class Installer
   end
 
   def self.framework_post_install
-    begin
-      gem = Gem::Specification.find_by_name('cms_automation') 
-    rescue 
-      gem = nil
+    sleep 5
+    if framework_installed?
+      puts "Successfully installed the Automation Framework!!"
+    else
+      puts "Could not install the gem correctly"
     end
-    success = <<-message
-      Successfully installed #{gem.name} #{gem.version}!!
-      message
-      if gem
-        puts success 
-      else
-        puts "Could not install the gem correctly"
-      end
   end
 
   def self.ruby
@@ -120,5 +114,6 @@ class Installer
 end
 
 Installer.install
+
 
 
