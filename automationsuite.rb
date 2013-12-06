@@ -46,13 +46,12 @@ class Installer
     #rescue Gem::LoadError
       #false
     #end
-    debugger
     result = run('automationsuite testinstall')
     !(result.empty? || result.nil?)
   end
 
   def self.download_and_install(binary)
-    run download(binary_url)
+    run download(binary, true)
   end
 
   def self.download(url)
@@ -70,12 +69,13 @@ class Installer
   end
 
   def self.install_framework
-    run('gem install cms_automation')
+    run('gem install cms_automation', true)
   end
 
 
-  def self.run(command)
-    `#{command} >nul 2>&1`
+  def self.run(command, without_output=false)
+    command = "#{command} >nul 2>&1" if without_output
+    `#{command}`
   end
 
   def self.ruby_installed_message
