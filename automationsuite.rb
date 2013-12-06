@@ -41,23 +41,23 @@ class Installer
   def self.ruby_installed?
     begin
       @rubyversion = run("ruby -v")
+      if @rubyversion.match('1.9.3') 
+        true
+      elsif @rubyversion.match('ruby')
+        raise "You seem to have #{@rubyversion} installed \n. Please uninstall it and restart this installer"
+      else
+        false
+      end
     rescue 
       nil
-    end
-    if @rubyversion.match('1.9.3') 
-      true
-    elsif @rubyversion.match('ruby')
-      raise "You seem to have #{@rubyversion} installed \n. Please uninstall it and restart this installer"
-    else
-      false
     end
   end
 
   def self.framework_installed?
     #begin
-      #Gem::Specification.find_by_name('cms_automation')
+    #Gem::Specification.find_by_name('cms_automation')
     #rescue Gem::LoadError
-      #false
+    #false
     #end
     begin
       result = run('automationsuite testinstall')
