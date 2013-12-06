@@ -28,7 +28,7 @@ class Installer
       end
     else
       puts "Installing Ruby...this will take upto 15 minutes...be patient"
-      download_and_install(ruby)
+      install_ruby
       self.install(false)
     end
     #download_and_install(editor)
@@ -53,23 +53,10 @@ class Installer
     end
   end
 
-  def self.download_and_install(binary)
+  def self.install_ruby
     #run download(binary), true
-    download binary
-  end
-
-  def self.download(url)
-    uri = URI.parse(url)
-    home = File.expand_path(`~`)
-    name = uri.to_s == ruby ? 'railsinstaller.exe' : 'cms_automation.gem'
-    path = File.join(home, 'Downloads', name )
-    Net::HTTP.start(uri.host) do |http|
-      resp = http.get(uri.path)
-      open(path, "wb") do |file|
-        file.write(resp.body)
-      end
-    end
-    puts "Done."
+    file = File.join(Dir(File.expand_path(__FILE__)), 'railsinstaller.exe')
+    run file
   end
 
   def self.install_framework
