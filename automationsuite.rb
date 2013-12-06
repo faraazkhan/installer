@@ -24,6 +24,7 @@ class Installer
         puts framework_installed_message
       else
         install_framework
+        framework_post_install
       end
     else
       download_and_install(ruby)
@@ -89,6 +90,18 @@ class Installer
        If you would like to reinstall the framework, uninstall it first. 
        You can find the instructions here: instructions.url
     message
+  end
+
+  def self.framework_post_install
+    gem = Gem::Specification.find_by_name('cms_automation') rescue nil
+    success = <<-message
+      Successfully installed #{gem.name} #{gem.version}!!
+      message
+      if gem
+        puts success 
+      else
+        puts "Could not install the gem correctly"
+      end
   end
 
   def self.ruby
