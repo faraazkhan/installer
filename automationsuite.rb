@@ -38,8 +38,12 @@ class Installer
   end
 
   def self.framework_installed?
-    load_gem = run("gem 'cms_automation'")
-    !load_gem.to_s.empty?
+    begin
+      Gem::Specification.find_by_name('cms_automation')
+      true
+    rescue Gem::LoadError
+      false
+    end
   end
 
   def self.download_and_install(binary)
