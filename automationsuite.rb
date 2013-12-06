@@ -23,12 +23,12 @@ class Installer
       if framework_installed?
         puts framework_installed_message
       else
-        puts "Installing CMS Automation Framework"
+        puts "Installing CMS Automation Framework...this will take upto 5 minutes...be patient!"
         install_framework
         framework_post_install
       end
     else
-      puts "Installing Ruby"
+      puts "Installing Ruby...this will take upto 15 minutes...be patient"
       download_and_install(ruby)
       self.install(false)
     end
