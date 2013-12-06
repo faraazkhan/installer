@@ -23,10 +23,12 @@ class Installer
       if framework_installed?
         puts framework_installed_message
       else
+        puts "Installing CMS Automation Gem"
         install_framework
         framework_post_install
       end
     else
+      puts "Installing Ruby"
       download_and_install(ruby)
       self.install(false)
     end
@@ -93,7 +95,11 @@ class Installer
   end
 
   def self.framework_post_install
-    gem = Gem::Specification.find_by_name('cms_automation') rescue nil
+    begin
+      gem = Gem::Specification.find_by_name('cms_automation') 
+    rescue 
+      gem = nil
+    end
     success = <<-message
       Successfully installed #{gem.name} #{gem.version}!!
       message
