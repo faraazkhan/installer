@@ -14,7 +14,6 @@
 #
 # Install Gherkin Editor
 require 'net/http'
-require 'debugger'
 class Installer
 
   def self.install(old_installation=true)
@@ -61,10 +60,9 @@ class Installer
 
   def self.download(url)
     uri = URI.parse(url)
-    pwd = run('cd')
-    name = uri.host =~ /rails/ ? 'railsinstaller.exe' : 'cms_automation.gem'
-    debugger
-    path = File.join(pwd, 'Downloads', name )
+    home = File.expand_path(`~`)
+    name = uri.to_s == ruby ? 'railsinstaller.exe' : 'cms_automation.gem'
+    path = File.join(home, 'Downloads', name )
     Net::HTTP.start(uri.host) do |http|
       resp = http.get(uri.path)
       open(path, "wb") do |file|
